@@ -6,7 +6,7 @@ Este projeto possibilita a pesquisa dos produtores de filmes que venceram o prê
 - maven 3.8.2
 
 ## Instalação
-Após clonar o repositório compile o código através do comando abaixo, a partir do branch "master":
+Após clonar o repositório compile o código através do comando abaixo, a partir do branch "main":
 
 `$ mvn clean install`
 
