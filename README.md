@@ -30,91 +30,84 @@ $ curl --location --request GET 'http://localhost:8080/raspberry/producer/prizes
 {
     "max": [
         {
-            "followingWin": 2001,
-            "interval": 10,
-            "previousWin": 1991,
-            "producer": "John"
+            "followingWin": 2015,
+            "interval": 13,
+            "previousWin": 2002,
+            "producer": "Matthew Vaughn"
         }
     ],
     "min": [
         {
-            "followingWin": 1996,
+            "followingWin": 1991,
             "interval": 1,
-            "previousWin": 1995,
-            "producer": "Bob"
-        },
-        {
-            "followingWin": 2001,
-            "interval": 1,
-            "previousWin": 2000,
-            "producer": "John"
-        }
-    ]
-}
-```
-```
-$ curl --location --request GET 'http://localhost:8080/raspberry/producer/prizes?startYear=1999' | python -m json.tool
-
-{
-    "max": [
-        {
-            "followingWin": 2001,
-            "interval": 1,
-            "previousWin": 2000,
-            "producer": "John"
-        }
-    ],
-    "min": [
-        {
-            "followingWin": 2001,
-            "interval": 1,
-            "previousWin": 2000,
-            "producer": "John"
-        }
-    ]
-}
-
-```
-```
-curl --location --request GET 'http://localhost:8080/raspberry/producer/prizes?endYear=1995' | python -m json.tool
-
-{
-    "max": [
-        {
-            "followingWin": 1995,
-            "interval": 5,
             "previousWin": 1990,
-            "producer": "Bob"
+            "producer": "Joel Silver"
+        }
+    ]
+}
+```
+```
+$ curl --location --request GET 'http://localhost:8080/raspberry/producer/prizes?startYear=2000' | python -m json.tool
+
+{
+    "max": [
+        {
+            "followingWin": 2015,
+            "interval": 13,
+            "previousWin": 2002,
+            "producer": "Matthew Vaughn"
         }
     ],
     "min": [
+        {
+            "followingWin": 2015,
+            "interval": 13,
+            "previousWin": 2002,
+            "producer": "Matthew Vaughn"
+        }
+    ]
+}
+```
+```
+curl --location --request GET 'http://localhost:8080/raspberry/producer/prizes?endYear=1993' | python -m json.tool
+
+{
+    "max": [
+        {
+            "followingWin": 1990,
+            "interval": 6,
+            "previousWin": 1984,
+            "producer": "Bo Derek"
+        }
+    ],
+    "min": [
+        {
+            "followingWin": 1991,
+            "interval": 1,
+            "previousWin": 1990,
+            "producer": "Joel Silver"
+        }
+    ]
+}
+```
+```
+curl --location --request GET 'http://localhost:8080/raspberry/producer/prizes?startYear=1980&endYear=2014' | python -m json.tool
+
+{
+    "max": [
         {
             "followingWin": 1994,
-            "interval": 2,
-            "previousWin": 1992,
-            "producer": "Lisa"
-        }
-    ]
-}
-```
-```
-curl --location --request GET 'http://localhost:8080/raspberry/producer/prizes?startYear=1992&endYear=1998' | python -m json.tool
-
-{
-    "max": [
-        {
-            "followingWin": 1997,
-            "interval": 4,
-            "previousWin": 1993,
-            "producer": "Josh"
+            "interval": 9,
+            "previousWin": 1985,
+            "producer": "Buzz Feitshans"
         }
     ],
     "min": [
         {
-            "followingWin": 1996,
+            "followingWin": 1991,
             "interval": 1,
-            "previousWin": 1995,
-            "producer": "Bob"
+            "previousWin": 1990,
+            "producer": "Joel Silver"
         }
     ]
 }
