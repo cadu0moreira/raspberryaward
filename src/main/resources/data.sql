@@ -2,8 +2,26 @@ DROP TABLE IF EXISTS ProducerPrize;
 CREATE TABLE ProducerPrize
 (
     ID LONG PRIMARY KEY,
-    PRODUCER VARCHAR(55),
-    WINNING_YEAR INT,
-    UNIQUE KEY year (WINNING_YEAR)
+    PRODUCER VARCHAR,
+    WINNING_YEAR INT
 )
-AS SELECT * FROM CSVREAD('src/main/resources/producer_prizes.csv');
+AS (WITH RECURSIVE CTE(S, H, T, WINNING_YEAR) AS (
+SELECT PRODUCER, 0, 1, WINNING_YEAR
+   FROM (
+      SELECT REPLACE(REPLACE(producers, ' and ', ', '), ',,', ',' ) as PRODUCER,
+          year as WINNING_YEAR
+      FROM CSVREAD('src/main/resources/movielist.csv',null,'charset=UTF-8 fieldSeparator=;')
+      WHERE winner IS NOT NULL AND LOWER(winner) = 'yes')
+UNION ALL
+SELECT S, T, LOCATE(',', S, T + 1), WINNING_YEAR
+FROM CTE
+WHERE T <> 0
+)
+SELECT
+    ROW_NUMBER() OVER(ORDER BY WINNING_YEAR ASC) as ID,
+        TRIM(SUBSTRING(S
+                       FROM (CASE H WHEN H = 1 THEN H ELSE H + 1 END)
+                       FOR (CASE T WHEN 0 THEN CHARACTER_LENGTH(S) ELSE (CASE H WHEN 1 THEN T - H ELSE T - H - 1 END) END))) PRODUCER,
+    WINNING_YEAR
+FROM CTE WHERE H > 0
+ORDER BY WINNING_YEAR ASC);
