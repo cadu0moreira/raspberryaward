@@ -22,9 +22,8 @@ public class ProducerControllerTest {
     @Test
     public void getProducerPrizePeriods_noPeriodLimitsSuccess() throws Exception {
         final String expectedPrizes = "{" +
-                "'min':[{'producer':'Bob','interval':1,'previousWin':1995,'followingWin':1996}," +
-                        "{'producer':'John','interval':1,'previousWin':2000,'followingWin':2001}]," +
-                "'max':[{'producer':'John','interval':10,'previousWin':1991,'followingWin':2001}]}";
+                "'min':[{'producer':'Joel Silver','interval':1,'previousWin':1990,'followingWin':1991}]," +
+                "'max':[{'producer':'Matthew Vaughn','interval':13,'previousWin':2002,'followingWin':2015}]}";
 
         this.mockMvc.perform(get("/raspberry/producer/prizes")).andDo(print())
                 .andExpect(status().isOk())
@@ -34,10 +33,10 @@ public class ProducerControllerTest {
     @Test
     public void getProducerPrizePeriods_bothPeriodLimitsSuccess() throws Exception {
         final String expectedPrizes = "{" +
-                "'min':[{'producer':'Bob','interval':1,'previousWin':1995,'followingWin':1996}]," +
-                "'max':[{'producer':'Bob','interval':1,'previousWin':1995,'followingWin':1996}]}";
+                "'min':[{'producer':'Joel Silver','interval':1,'previousWin':1990,'followingWin':1991}]," +
+                "'max':[{'producer':'Buzz Feitshans','interval':9,'previousWin':1985,'followingWin':1994}]}";
 
-        this.mockMvc.perform(get("/raspberry/producer/prizes?startYear=1994&endYear=2000")).andDo(print())
+        this.mockMvc.perform(get("/raspberry/producer/prizes?startYear=1980&endYear=2014")).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedPrizes));
     }
@@ -45,21 +44,21 @@ public class ProducerControllerTest {
     @Test
     public void getProducerPrizePeriods_startLimitSuccess() throws Exception {
         final String expectedPrizes = "{" +
-                "'min':[{'producer':'Bob','interval':1,'previousWin':1995,'followingWin':1996}," +
-                        "{'producer':'John','interval':1,'previousWin':2000,'followingWin':2001}]," +
-                "'max':[{'producer':'Josh','interval':4,'previousWin':1993,'followingWin':1997}]}";
+                "'min':[{'producer':'Matthew Vaughn','interval':13,'previousWin':2002,'followingWin':2015}]," +
+                "'max':[{'producer':'Matthew Vaughn','interval':13,'previousWin':2002,'followingWin':2015}]}";
 
-        this.mockMvc.perform(get("/raspberry/producer/prizes?startYear=1993")).andDo(print())
+        this.mockMvc.perform(get("/raspberry/producer/prizes?startYear=2000")).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedPrizes));
     }
 
     @Test
     public void getProducerPrizePeriods_endLimitSuccess() throws Exception {
-        final String expectedPrizes = "{'min':[{'producer':'Bob','interval':1,'previousWin':1995,'followingWin':1996}]," +
-                "'max':[{'producer':'Bob','interval':6,'previousWin':1990,'followingWin':1996}]}";
+        final String expectedPrizes = "{" +
+                "'min':[{'producer':'Joel Silver','interval':1,'previousWin':1990,'followingWin':1991}]," +
+                "'max':[{'producer':'Bo Derek','interval':6,'previousWin':1984,'followingWin':1990}]}";
 
-        this.mockMvc.perform(get("/raspberry/producer/prizes?endYear=1996")).andDo(print())
+        this.mockMvc.perform(get("/raspberry/producer/prizes?endYear=1993")).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedPrizes));
     }
